@@ -1,13 +1,19 @@
 package com.randaegs.domain.entities;
 
-import io.quarkus.mongodb.panache.common.MongoEntity;
-import org.bson.types.ObjectId;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
-@MongoEntity(collection = "product_stock")
 public class ProductStock {
-    public ObjectId id;
-    public int actualStock;
-    public int minimumStock;
-    public int maximumStock;
-    public Product product;
+
+    @NotNull
+    @Min(0)
+    public Integer actualStock;
+
+    @NotNull
+    @Min(0)
+    public Integer minimumStock;
+
+    @NotNull
+    @Min(0)
+    public Integer maximumStock;
 }
