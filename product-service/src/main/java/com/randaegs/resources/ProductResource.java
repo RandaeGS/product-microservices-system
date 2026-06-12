@@ -1,7 +1,7 @@
 package com.randaegs.resources;
 
+import com.randaegs.domain.dto.SellProductDto;
 import com.randaegs.domain.entities.Product;
-import com.randaegs.repositories.ProductRepository;
 import com.randaegs.services.ProductService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -9,9 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.bson.types.ObjectId;
 
-import java.net.URI;
 import java.util.List;
 
 @Path("products")
@@ -23,7 +21,7 @@ public class ProductResource {
     ProductService service;
 
     @GET
-    public List<Product> list(@QueryParam("page") Integer page, @QueryParam("size") Integer size) {
+    public List<Product> list(@QueryParam("page") @DefaultValue("0") Integer page, @QueryParam("size") @DefaultValue("10") Integer size) {
         return service.list(page, size);
     }
 
@@ -35,7 +33,7 @@ public class ProductResource {
 
     @POST
     @Transactional
-    public Response create(@Valid Product product){
+    public Response create(@Valid Product product) {
         return service.create(product);
     }
 
@@ -52,4 +50,9 @@ public class ProductResource {
         return service.delete(id);
     }
 
+    @POST
+    @Path("/sell")
+    public Response sell(@Valid SellProductDto dto) {
+        return service.sell(dto);
+    }
 }
