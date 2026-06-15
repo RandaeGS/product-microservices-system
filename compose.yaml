@@ -1,0 +1,28 @@
+services:
+  product-service:
+    image: kaiseldor/product-management-system-product-service:latest
+    container_name: product-service
+    depends_on:
+      mongodb:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - MONGODB_URI=mongodb://product-db:27017/?replicaSet=rs0 
+    networks:
+        - app-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: product-db
+    command: ["--replSet", "rs0"]
+    networks:
+        - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

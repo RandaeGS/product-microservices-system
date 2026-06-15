@@ -1,6 +1,6 @@
 ### Instructions
 
-To dockerize app run "docker build -t kaiseldor:product-management-system-product-service ."
+To dockerize app run "docker build -t kaiseldor/product-management-system-product-service ."
 
 To run the service via the generated jar you need to:
 

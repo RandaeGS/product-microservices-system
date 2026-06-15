@@ -9,6 +9,6 @@ RUN gradle build -x test --no-daemon
 # ---- Step 2: Run ----
 FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
-COPY --from=build /app/build/quarkus-app/quarkus-run.jar /app/quarkus-app
+COPY --from=build /app/build/quarkus-app /app/quarkus-app
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/quarkus-app/quarkus-run.jar"]
