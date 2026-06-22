@@ -1,0 +1,42 @@
+name: product-service
+
+services:
+  products_db:
+    image: mongo:8.0.4
+    container_name: products_db
+    restart: always
+    ports:
+        - "27017:27017"
+    command: ["--replSet", "rs0", "--bind_ip_all"]
+    volumes:
+      - ./mongo-dev-data:/data/db
+    networks:
+      - product-net
+
+  mongo-init:
+      image: mongo:8.0
+      container_name: products_db_init
+      depends_on:
+        - products_db
+      entrypoint: ["/bin/sh", "-c"]
+      command: 
+        - |
+          echo "Waiting for mongodb to start..."
+          until mongosh --host products_db:27017 --eval "print('waiting for connection')" > /dev/null 2>&1; do
+            sleep 1
+          done
+          
+          echo "Checking replica set status..."
+          # If rs.status() exits with 0, the replica set is already alive!
+          if mongosh --host products_db:27017 --eval "rs.status()" > /dev/null 2>&1; then
+            echo "Replica set is already initialized. Skipping configuration."
+          else
+            echo "Replica set not found. Initiating replica set now..."
+            mongosh --host products_db:27017 --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})"
+          fi
+      networks:
+        - product-net
+
+networks:
+  product-net:
+    driver: bridge
