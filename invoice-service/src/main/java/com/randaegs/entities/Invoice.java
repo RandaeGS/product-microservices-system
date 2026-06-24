@@ -1,5 +1,6 @@
 package com.randaegs.entities;
 
+import com.randaegs.dto.SellProductDto;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 import java.util.UUID;
 
+@Entity
 @Table(name = "invoices")
 public class Invoice extends PanacheEntityBase {
     @Id
@@ -22,4 +24,9 @@ public class Invoice extends PanacheEntityBase {
     @CreationTimestamp
     @Column(name = "creation_date")
     public Instant creationDate;
+
+    public Invoice(SellProductDto dto) {
+        this.productId = dto.id();
+        this.productAmount = dto.amount();
+    }
 }

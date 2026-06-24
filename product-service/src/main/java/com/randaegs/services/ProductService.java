@@ -2,6 +2,7 @@ package com.randaegs.services;
 
 import com.randaegs.domain.dto.SellProductDto;
 import com.randaegs.domain.entities.Product;
+import com.randaegs.messaging.InvoiceMessaging;
 import com.randaegs.repositories.ProductRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -19,6 +20,9 @@ public class ProductService {
 
     @Inject
     ProductRepository productRepository;
+
+    @Inject
+    InvoiceMessaging invoiceMessaging;
 
     public List<Product> list(@QueryParam("page") Integer page, @QueryParam("size") Integer size) {
         return productRepository.findActiveProducts(page, size);
@@ -72,6 +76,8 @@ public class ProductService {
 
         product.productStock.actualStock -= dto.amount();
         productRepository.update(product);
+
+        invoiceMessaging.createInvoice(dto);
         return Response.ok().build();
     }
 }
