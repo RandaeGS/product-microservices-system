@@ -1,6 +1,7 @@
-CREATE TABLE IF NOT EXISTS (
-    id UUID PRIMARY KEY,
-    product_id VARCHAR(30),
-    product_amount INT,
-    creation_date TIMESTAMP,
-)
+CREATE TABLE invoices (
+    id UUID NOT NULL,
+    creation_date TIMESTAMP(6) WITH TIME ZONE,
+    product_amount INTEGER,
+    product_id VARCHAR(255),
+    PRIMARY KEY (id)
+);

@@ -14,6 +14,7 @@ val quarkusPlatformVersion: String by project
 
 dependencies {
     implementation("io.quarkus:quarkus-flyway")
+    implementation("org.flywaydb:flyway-database-postgresql")
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation("io.quarkus:quarkus-hibernate-validator")
     implementation("io.quarkus:quarkus-messaging-kafka")
