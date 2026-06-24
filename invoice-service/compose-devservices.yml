@@ -25,7 +25,8 @@ services:
       - "5432:5432"
     container_name: invoice_db
     environment:
-        POSTGRES_USER: test
-        POSTGRES_PASSWORD: test
+        POSTGRES_USER: dev
+        POSTGRES_PASSWORD: dev
         POSTGRES_DB: invoice-db
-
+    volumes:
+      - ./postgresql-dev-data:/var/lib/postgresql/data
