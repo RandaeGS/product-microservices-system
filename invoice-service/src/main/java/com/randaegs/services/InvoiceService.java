@@ -1,6 +1,6 @@
 package com.randaegs.services;
 
-import com.randaegs.dto.SellProductDto;
+import com.randaegs.dto.ProductSoldMessage;
 import com.randaegs.entities.Invoice;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -13,7 +13,7 @@ public class InvoiceService {
     private static final Logger log = LoggerFactory.getLogger(InvoiceService.class);
 
     @Transactional
-    public Invoice create(SellProductDto dto) {
+    public Invoice create(ProductSoldMessage dto) {
         var invoice = new Invoice(dto);
         invoice.persist();
 

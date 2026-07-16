@@ -1,5 +1,6 @@
 package com.randaegs.services;
 
+import com.randaegs.domain.dto.ProductSoldMessage;
 import com.randaegs.domain.dto.SellProductDto;
 import com.randaegs.domain.entities.Product;
 import com.randaegs.messaging.InvoiceMessaging;
@@ -77,7 +78,11 @@ public class ProductService {
         product.productStock.actualStock -= dto.amount();
         productRepository.update(product);
 
-        invoiceMessaging.createInvoice(dto);
+        invoiceMessaging.createInvoice(generateSellMessageDto(product, dto));
         return Response.ok().build();
+    }
+
+    private ProductSoldMessage generateSellMessageDto(Product product, SellProductDto dto) {
+        return new ProductSoldMessage(product.id.toString(), product.name, product.price, dto.amount());
     }
 }

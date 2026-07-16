@@ -1,5 +1,6 @@
 package com.randaegs.messaging;
 
+import com.randaegs.domain.dto.ProductSoldMessage;
 import com.randaegs.domain.dto.SellProductDto;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -9,9 +10,9 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 public class InvoiceMessaging {
 
     @Channel("create")
-    Emitter<SellProductDto> emitter;
+    Emitter<ProductSoldMessage> emitter;
 
-    public void createInvoice(SellProductDto dto) {
+    public void createInvoice(ProductSoldMessage dto) {
         emitter.send(dto);
     }
 }

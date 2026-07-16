@@ -1,6 +1,6 @@
 package com.randaegs.messaging;
 
-import com.randaegs.dto.SellProductDto;
+import com.randaegs.dto.ProductSoldMessage;
 import com.randaegs.services.InvoiceService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,7 +17,8 @@ public class InvoiceMessaging {
     InvoiceService invoiceService;
 
     @Incoming("create")
-    public void createInvoice(SellProductDto dto) {
+    public void createInvoice(ProductSoldMessage dto) {
+        log.info("Message recieved");
         invoiceService.create(dto);
     }
 }

@@ -1,10 +1,11 @@
 package com.randaegs.entities;
 
-import com.randaegs.dto.SellProductDto;
+import com.randaegs.dto.ProductSoldMessage;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -18,6 +19,12 @@ public class Invoice extends PanacheEntityBase {
     @Column(name = "product_id")
     public String productId;
 
+    @Column(name = "product_name")
+    public String productName;
+
+    @Column(name = "product_price")
+    public BigDecimal productPrice;
+
     @Column(name = "product_amount")
     public Integer productAmount;
 
@@ -25,8 +32,10 @@ public class Invoice extends PanacheEntityBase {
     @Column(name = "creation_date")
     public Instant creationDate;
 
-    public Invoice(SellProductDto dto) {
+    public Invoice(ProductSoldMessage dto) {
         this.productId = dto.id();
+        this.productName = dto.name();
+        this.productPrice = dto.price();
         this.productAmount = dto.amount();
     }
 }
