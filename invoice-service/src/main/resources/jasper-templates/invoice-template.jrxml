@@ -1,0 +1,55 @@
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
+<jasperReport name="invoice-template" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c33be01-4910-4294-a2b8-c20f45d11f7c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="invoiceId" class="java.lang.String"/>
+	<parameter name="productId" class="java.lang.String"/>
+	<parameter name="productName" class="java.lang.String"/>
+	<parameter name="productPrice" class="java.lang.String"/>
+	<parameter name="productAmount" class="java.lang.String"/>
+	<parameter name="creationDate" class="java.lang.String"/>
+	<query language="sql"><![CDATA[]]></query>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="textField" uuid="ec902532-a116-4e3f-beae-8ac7397403b7" x="0" y="0" width="555" height="79" fontSize="19.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["Invoice " + $P{invoiceId}]]></expression>
+		</element>
+	</title>
+	<detail>
+		<band height="70" splitType="Stretch">
+			<element kind="staticText" uuid="e03d328b-bfa0-48f8-bca4-d8924bbfce20" x="0" y="5" width="80" height="20" bold="true">
+				<text><![CDATA[Product ID]]></text>
+			</element>
+			<element kind="staticText" uuid="df029cfa-13fa-4340-a92c-61cbca83535d" x="90" y="5" width="220" height="20" bold="true">
+				<text><![CDATA[Product Name]]></text>
+			</element>
+			<element kind="staticText" uuid="7cf424fa-4fc6-407a-939e-2da6b0548d1c" x="320" y="5" width="100" height="20" bold="true" hTextAlign="Right">
+				<text><![CDATA[Unit Price]]></text>
+			</element>
+			<element kind="staticText" uuid="c123efab-12ff-4c22-b5e1-0cf8716b5a32" x="430" y="5" width="125" height="20" bold="true" hTextAlign="Right">
+				<text><![CDATA[Quantity]]></text>
+			</element>
+			<element kind="line" uuid="60ea47f5-93df-4048-ae09-222a006c8b9d" x="0" y="27" width="555" height="1"/>
+			<element kind="textField" uuid="790ea14c-4de9-44dc-90c7-e6b526d2c755" x="0" y="33" width="80" height="30" vTextAlign="Middle">
+				<expression><![CDATA[$P{productId}]]></expression>
+			</element>
+			<element kind="textField" uuid="a7f8bca1-92be-4977-94d3-780c6550fb77" x="90" y="33" width="220" height="30" vTextAlign="Middle">
+				<expression><![CDATA[$P{productName}]]></expression>
+			</element>
+			<element kind="textField" uuid="07e366fd-df88-4f10-943a-e274cc044059" x="320" y="33" width="100" height="30" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$P{productPrice}]]></expression>
+			</element>
+			<element kind="textField" uuid="fcf4db9b-b56e-4f0e-b715-f5be8e25d2ea" x="430" y="33" width="125" height="30" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$P{productAmount}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<summary height="50" splitType="Stretch">
+		<element kind="line" uuid="a2a688b1-36b1-4c62-841c-bfa8cf0ee824" x="300" y="5" width="255" height="1"/>
+		<element kind="staticText" uuid="f98fa4a3-7ef2-488b-b8aa-bc09a47fb89b" x="300" y="15" width="120" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<text><![CDATA[Total Cost:]]></text>
+		</element>
+		<element kind="textField" uuid="1c841324-ee49-43c3-8822-ba78feef22bf" x="430" y="15" width="125" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[new java.text.DecimalFormat("$#,##0.00").format(Double.parseDouble($P{productPrice}) * Double.parseDouble($P{productAmount}))]]></expression>
+		</element>
+	</summary>
+</jasperReport>
