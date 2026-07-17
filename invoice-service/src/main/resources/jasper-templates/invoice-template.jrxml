@@ -4,8 +4,8 @@
 	<parameter name="invoiceId" class="java.lang.String"/>
 	<parameter name="productId" class="java.lang.String"/>
 	<parameter name="productName" class="java.lang.String"/>
-	<parameter name="productPrice" class="java.lang.String"/>
-	<parameter name="productAmount" class="java.lang.String"/>
+	<parameter name="productPrice" class="java.math.BigDecimal"/>
+	<parameter name="productAmount" class="java.lang.Integer"/>
 	<parameter name="creationDate" class="java.lang.String"/>
 	<query language="sql"><![CDATA[]]></query>
 	<background splitType="Stretch"/>
@@ -49,7 +49,7 @@
 			<text><![CDATA[Total Cost:]]></text>
 		</element>
 		<element kind="textField" uuid="1c841324-ee49-43c3-8822-ba78feef22bf" x="430" y="15" width="125" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
-			<expression><![CDATA[new java.text.DecimalFormat("$#,##0.00").format(Double.parseDouble($P{productPrice}) * Double.parseDouble($P{productAmount}))]]></expression>
+			<expression><![CDATA[BigDecimal.valueOf($P{productAmount}).multiply($P{productPrice})]]></expression>
 		</element>
 	</summary>
 </jasperReport>

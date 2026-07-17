@@ -13,6 +13,9 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
+    implementation("io.quarkiverse.amazonservices:quarkus-amazon-s3")
+    implementation(enforcedPlatform("${quarkusPlatformGroupId}:quarkus-amazon-services-bom:${quarkusPlatformVersion}"))
+    implementation("software.amazon.awssdk:url-connection-client")
     implementation("io.quarkiverse.jasperreports:quarkus-jasperreports:1.3.0")
     implementation("io.quarkus:quarkus-flyway")
     implementation("org.flywaydb:flyway-database-postgresql")
