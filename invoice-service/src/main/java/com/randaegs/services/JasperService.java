@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +20,7 @@ public class JasperService {
 
     private static final Logger log = LoggerFactory.getLogger(JasperService.class);
 
-    public JasperReport getReport(String templateName) {
+    private JasperReport getReport(String templateName) {
         String route = "/jasper-templates/" + templateName + ".jasper";
         try (InputStream reportStream = getClass().getResourceAsStream(route)) {
             if (reportStream == null) {
@@ -38,14 +40,17 @@ public class JasperService {
         var template = getReport(templateName);
 
         Map<String, Object> params = new HashMap<>();
-        params.put("invoiceId", invoice.id);
+        params.put("invoiceId", invoice.id.toString());
         params.put("productId", invoice.productId);
         params.put("productName", invoice.productName);
         params.put("productPrice", invoice.productPrice);
         params.put("productAmount", invoice.productAmount);
-        params.put("creationDate", invoice.creationDate);
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(template, params);
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").withZone(ZoneId.systemDefault());
+        var formattedDate = formatter.format(invoice.creationDate);
+        params.put("creationDate", formattedDate);
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(template, params, new JREmptyDataSource());
 
         File tempFile = File.createTempFile(templateName, ".pdf");
         tempFile.deleteOnExit();
