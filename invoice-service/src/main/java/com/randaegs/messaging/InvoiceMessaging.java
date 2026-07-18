@@ -39,9 +39,8 @@ public class InvoiceMessaging {
             log.info("Generating PDF invoice file");
             File pdf = jasperService.generateInvoicePDF(invoice);
 
-            String objectKey = "invoices/" + invoice.id + ".pdf";
-            log.info("Uploading PDF invoice to S3 with key: {}", objectKey);
-            s3Service.uploadInvoice(pdf, objectKey);
+            log.info("Uploading PDF invoice to S3 with id: {}", invoice.id);
+            s3Service.uploadInvoice(pdf, invoice.id.toString());
 
             log.info("Processing pipeline completed!");
         } catch (JRException | IOException e) {
