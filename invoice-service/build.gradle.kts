@@ -13,6 +13,7 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
+    implementation("xerces:xercesImpl:2.12.2")
     implementation("io.quarkus:quarkus-rest-jackson")
     implementation("io.quarkus:quarkus-rest")
     implementation("io.quarkiverse.amazonservices:quarkus-amazon-s3")
